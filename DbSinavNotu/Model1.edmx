@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbfirstSinavNotu2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TBLDERS">
+          <Key>
+            <PropertyRef Name="DersID" />
+          </Key>
+          <Property Name="DersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DersAD" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="TBLNOT">
+          <Key>
+            <PropertyRef Name="NOTID" />
+          </Key>
+          <Property Name="NOTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OGRID" Type="int" />
+          <Property Name="DERSID" Type="int" />
+          <Property Name="SINAV1" Type="smallint" />
+          <Property Name="SINAV2" Type="smallint" />
+          <Property Name="SINAV3" Type="smallint" />
+          <Property Name="ORTALAMA" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="DURUM" Type="bit" />
+        </EntityType>
+        <EntityType Name="TBLOGRENCI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AD" Type="varchar" MaxLength="20" />
+          <Property Name="SOYAD" Type="varchar" MaxLength="20" />
+          <Property Name="FOTOGRAF" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="FK_TBLNOT_TBLDERS1">
+          <End Role="TBLDERS" Type="Self.TBLDERS" Multiplicity="0..1" />
+          <End Role="TBLNOT" Type="Self.TBLNOT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLDERS">
+              <PropertyRef Name="DersID" />
+            </Principal>
+            <Dependent Role="TBLNOT">
+              <PropertyRef Name="DERSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLNOT_TBLOGRENCI1">
+          <End Role="TBLOGRENCI" Type="Self.TBLOGRENCI" Multiplicity="0..1" />
+          <End Role="TBLNOT" Type="Self.TBLNOT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLOGRENCI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLNOT">
+              <PropertyRef Name="OGRID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="NOTLAR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="NOTLİSTESİ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DbfirstSinavNotu2ModelStoreContainer">
+          <EntitySet Name="TBLDERS" EntityType="Self.TBLDERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLNOT" EntityType="Self.TBLNOT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TBLOGRENCI" EntityType="Self.TBLOGRENCI" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TBLNOT_TBLDERS1" Association="Self.FK_TBLNOT_TBLDERS1">
+            <End Role="TBLDERS" EntitySet="TBLDERS" />
+            <End Role="TBLNOT" EntitySet="TBLNOT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLNOT_TBLOGRENCI1" Association="Self.FK_TBLNOT_TBLOGRENCI1">
+            <End Role="TBLOGRENCI" EntitySet="TBLOGRENCI" />
+            <End Role="TBLNOT" EntitySet="TBLNOT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbfirstSinavNotu2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TBLDERS">
+          <Key>
+            <PropertyRef Name="DersID" />
+          </Key>
+          <Property Name="DersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DersAD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBLNOT" Relationship="Self.FK_TBLNOT_TBLDERS" FromRole="TBLDERS" ToRole="TBLNOT" />
+        </EntityType>
+        <EntityType Name="TBLNOT">
+          <Key>
+            <PropertyRef Name="NOTID" />
+          </Key>
+          <Property Name="NOTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OGRID" Type="Int32" />
+          <Property Name="DERSID" Type="Int32" />
+          <Property Name="SINAV1" Type="Int16" />
+          <Property Name="SINAV2" Type="Int16" />
+          <Property Name="SINAV3" Type="Int16" />
+          <Property Name="ORTALAMA" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="DURUM" Type="Boolean" />
+          <NavigationProperty Name="TBLDERS" Relationship="Self.FK_TBLNOT_TBLDERS" FromRole="TBLNOT" ToRole="TBLDERS" />
+          <NavigationProperty Name="TBLOGRENCI" Relationship="Self.FK_TBLNOT_TBLOGRENCI" FromRole="TBLNOT" ToRole="TBLOGRENCI" />
+        </EntityType>
+        <EntityType Name="TBLOGRENCI">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SOYAD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FOTOGRAF" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TBLNOT" Relationship="Self.FK_TBLNOT_TBLOGRENCI" FromRole="TBLOGRENCI" ToRole="TBLNOT" />
+        </EntityType>
+        <Association Name="FK_TBLNOT_TBLDERS">
+          <End Role="TBLDERS" Type="Self.TBLDERS" Multiplicity="0..1" />
+          <End Role="TBLNOT" Type="Self.TBLNOT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLDERS">
+              <PropertyRef Name="DersID" />
+            </Principal>
+            <Dependent Role="TBLNOT">
+              <PropertyRef Name="DERSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TBLNOT_TBLOGRENCI">
+          <End Role="TBLOGRENCI" Type="Self.TBLOGRENCI" Multiplicity="0..1" />
+          <End Role="TBLNOT" Type="Self.TBLNOT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TBLOGRENCI">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TBLNOT">
+              <PropertyRef Name="OGRID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbfirstSinavNotu2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TBLDERS" EntityType="Self.TBLDERS" />
+          <EntitySet Name="TBLNOT" EntityType="Self.TBLNOT" />
+          <EntitySet Name="TBLOGRENCI" EntityType="Self.TBLOGRENCI" />
+          <AssociationSet Name="FK_TBLNOT_TBLDERS" Association="Self.FK_TBLNOT_TBLDERS">
+            <End Role="TBLDERS" EntitySet="TBLDERS" />
+            <End Role="TBLNOT" EntitySet="TBLNOT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TBLNOT_TBLOGRENCI" Association="Self.FK_TBLNOT_TBLOGRENCI">
+            <End Role="TBLOGRENCI" EntitySet="TBLOGRENCI" />
+            <End Role="TBLNOT" EntitySet="TBLNOT" />
+          </AssociationSet>
+          <FunctionImport Name="NOTLAR" ReturnType="Collection(DbfirstSinavNotu2Model.NOTLAR_Result)" />
+          <FunctionImport Name="NOTLİSTESİ" ReturnType="Collection(DbfirstSinavNotu2Model.NOTLİSTESİ_Result)" />
+        </EntityContainer>
+        <ComplexType Name="NOTLAR_Result">
+          <Property Type="Int32" Name="NOTID" Nullable="false" />
+          <Property Type="String" Name="AD_SOYAD" Nullable="true" MaxLength="41" />
+          <Property Type="String" Name="DersAD" Nullable="true" MaxLength="20" />
+          <Property Type="Int16" Name="SINAV1" Nullable="true" />
+          <Property Type="Int16" Name="SINAV2" Nullable="true" />
+          <Property Type="Int16" Name="SINAV3" Nullable="true" />
+          <Property Type="Decimal" Name="ORTALAMA" Nullable="true" Precision="5" Scale="2" />
+          <Property Type="Boolean" Name="DURUM" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="NOTLİSTESİ_Result">
+          <Property Type="Int32" Name="NOTID" Nullable="false" />
+          <Property Type="String" Name="AD_SOYAD" Nullable="true" MaxLength="41" />
+          <Property Type="String" Name="DersAD" Nullable="true" MaxLength="20" />
+          <Property Type="Int16" Name="SINAV1" Nullable="true" />
+          <Property Type="Int16" Name="SINAV2" Nullable="true" />
+          <Property Type="Int16" Name="SINAV3" Nullable="true" />
+          <Property Type="Decimal" Name="ORTALAMA" Nullable="true" Precision="5" Scale="2" />
+          <Property Type="Boolean" Name="DURUM" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbfirstSinavNotu2ModelStoreContainer" CdmEntityContainer="DbfirstSinavNotu2Entities">
+          <EntitySetMapping Name="TBLDERS">
+            <EntityTypeMapping TypeName="DbfirstSinavNotu2Model.TBLDERS">
+              <MappingFragment StoreEntitySet="TBLDERS">
+                <ScalarProperty Name="DersID" ColumnName="DersID" />
+                <ScalarProperty Name="DersAD" ColumnName="DersAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLNOT">
+            <EntityTypeMapping TypeName="DbfirstSinavNotu2Model.TBLNOT">
+              <MappingFragment StoreEntitySet="TBLNOT">
+                <ScalarProperty Name="NOTID" ColumnName="NOTID" />
+                <ScalarProperty Name="OGRID" ColumnName="OGRID" />
+                <ScalarProperty Name="DERSID" ColumnName="DERSID" />
+                <ScalarProperty Name="SINAV1" ColumnName="SINAV1" />
+                <ScalarProperty Name="SINAV2" ColumnName="SINAV2" />
+                <ScalarProperty Name="SINAV3" ColumnName="SINAV3" />
+                <ScalarProperty Name="ORTALAMA" ColumnName="ORTALAMA" />
+                <ScalarProperty Name="DURUM" ColumnName="DURUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TBLOGRENCI">
+            <EntityTypeMapping TypeName="DbfirstSinavNotu2Model.TBLOGRENCI">
+              <MappingFragment StoreEntitySet="TBLOGRENCI">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+                <ScalarProperty Name="SOYAD" ColumnName="SOYAD" />
+                <ScalarProperty Name="FOTOGRAF" ColumnName="FOTOGRAF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="NOTLAR" FunctionName="DbfirstSinavNotu2Model.Store.NOTLAR">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DbfirstSinavNotu2Model.NOTLAR_Result">
+                <ScalarProperty Name="NOTID" ColumnName="NOTID" />
+                <ScalarProperty Name="AD_SOYAD" ColumnName="AD SOYAD" />
+                <ScalarProperty Name="DersAD" ColumnName="DersAD" />
+                <ScalarProperty Name="SINAV1" ColumnName="SINAV1" />
+                <ScalarProperty Name="SINAV2" ColumnName="SINAV2" />
+                <ScalarProperty Name="SINAV3" ColumnName="SINAV3" />
+                <ScalarProperty Name="ORTALAMA" ColumnName="ORTALAMA" />
+                <ScalarProperty Name="DURUM" ColumnName="DURUM" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="NOTLİSTESİ" FunctionName="DbfirstSinavNotu2Model.Store.NOTLİSTESİ">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DbfirstSinavNotu2Model.NOTLİSTESİ_Result">
+                <ScalarProperty Name="NOTID" ColumnName="NOTID" />
+                <ScalarProperty Name="AD_SOYAD" ColumnName="AD SOYAD" />
+                <ScalarProperty Name="DersAD" ColumnName="DersAD" />
+                <ScalarProperty Name="SINAV1" ColumnName="SINAV1" />
+                <ScalarProperty Name="SINAV2" ColumnName="SINAV2" />
+                <ScalarProperty Name="SINAV3" ColumnName="SINAV3" />
+                <ScalarProperty Name="ORTALAMA" ColumnName="ORTALAMA" />
+                <ScalarProperty Name="DURUM" ColumnName="DURUM" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
